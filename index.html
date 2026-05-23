@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bouquetta — Send a Flower Bouquet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ───────────────────────────────────────────── */
+    :root {
+      --cream:   #FAF6F1;
+      --parchment: #F2EBE0;
+      --blush:   #F4C5BE;
+      --rose:    #C9616A;
+      --moss:    #6B7C5E;
+      --sage:    #A8B89A;
+      --gold:    #C9A96E;
+      --ink:     #2B2320;
+      --muted:   #7A6E68;
+      --white:   #FFFFFF;
+      --shadow:  rgba(43,35,32,.12);
+      --r:       16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Grain overlay ───────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .5;
+    }
+
+    /* ── Hero ────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      position: relative;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, #f9e8e0 0%, var(--cream) 70%);
+    }
+
+    .hero-deco {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-deco span {
+      position: absolute;
+      font-size: clamp(3rem, 8vw, 7rem);
+      opacity: .07;
+      animation: float 8s ease-in-out infinite;
+      user-select: none;
+    }
+    .hero-deco span:nth-child(1)  { top: 5%;  left:  4%; animation-delay: 0s;   }
+    .hero-deco span:nth-child(2)  { top: 8%;  right: 6%; animation-delay: 1.2s; }
+    .hero-deco span:nth-child(3)  { top:42%;  left:  2%; animation-delay: 2.4s; }
+    .hero-deco span:nth-child(4)  { top:40%;  right: 3%; animation-delay: 0.8s; }
+    .hero-deco span:nth-child(5)  { bottom:10%; left: 8%; animation-delay: 1.8s; }
+    .hero-deco span:nth-child(6)  { bottom:8%; right:7%; animation-delay: 3.0s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(-4deg); }
+      50%      { transform: translateY(-18px) rotate(4deg); }
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--blush);
+      color: var(--rose);
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35em 1em;
+      border-radius: 99px;
+      margin-bottom: 1.4rem;
+      animation: fadeUp .6s ease both;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--ink);
+      animation: fadeUp .7s .1s ease both;
+    }
+    h1 em { font-style: italic; color: var(--rose); }
+
+    .hero-sub {
+      max-width: 520px;
+      margin: 1.2rem auto 2.4rem;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      animation: fadeUp .7s .2s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 99px;
+      padding: .85rem 2rem;
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(201,97,106,.35);
+      animation: fadeUp .7s .3s ease both;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #b8545d; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,97,106,.45); }
+    .btn-primary:active { transform: translateY(0); }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── Section wrapper ─────────────────────────────────────────── */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Birth-month banner ──────────────────────────────────────── */
+    #birth-banner {
+      background: linear-gradient(135deg, #fdf0e8, #fce8ea);
+      border: 1px solid #f5d0c5;
+      border-radius: var(--r);
+      padding: 1.4rem 2rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    #birth-banner .bb-icon { font-size: 2rem; flex-shrink: 0; }
+    #birth-banner .bb-text { flex: 1; min-width: 200px; }
+    #birth-banner .bb-text strong { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; display: block; }
+    #birth-banner .bb-text span { font-size: .85rem; color: var(--muted); }
+
+    .birth-month-select {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      flex-wrap: wrap;
+    }
+    .birth-month-select label { font-size: .85rem; color: var(--muted); }
+    .birth-month-select select {
+      padding: .4rem .8rem;
+      border: 1px solid var(--blush);
+      border-radius: 99px;
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      color: var(--ink);
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* ── Flower grid ─────────────────────────────────────────────── */
+    .flower-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .flower-card {
+      background: white;
+      border-radius: var(--r);
+      padding: 1.2rem 1rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 2px 12px var(--shadow);
+      position: relative;
+      user-select: none;
+    }
+    .flower-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px var(--shadow); }
+    .flower-card.selected {
+      border-color: var(--rose);
+      background: #fff7f7;
+    }
+    .flower-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: .5rem; right: .6rem;
+      background: var(--rose);
+      color: white;
+      width: 1.4rem; height: 1.4rem;
+      border-radius: 50%;
+      font-size: .7rem;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+    }
+    .flower-card.birth-flower { outline: 2px dashed var(--gold); outline-offset: 3px; }
+
+    .flower-svg-wrap {
+      width: 80px; height: 80px;
+      margin: 0 auto .8rem;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+    .flower-card .f-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: .2rem;
+    }
+    .flower-card .f-meaning {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .03em;
+    }
+    .flower-card .f-birth-tag {
+      display: inline-block;
+      background: #fff3d6;
+      color: #9a7c2e;
+      font-size: .65rem;
+      padding: .15em .6em;
+      border-radius: 99px;
+      margin-top: .4rem;
+      letter-spacing: .05em;
+    }
+
+    /* ── Bouquet builder ─────────────────────────────────────────── */
+    #builder-section {
+      background: linear-gradient(135deg, #fdf7f3, #f9f0f5);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      margin: 0 auto;
+      max-width: 1100px;
+    }
+
+    .builder-inner {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 760px) {
+      .builder-inner { grid-template-columns: 1fr; }
+    }
+
+    /* Bouquet canvas */
+    .bouquet-canvas-wrap {
+      background: white;
+      border-radius: var(--r);
+      padding: 1.5rem;
+      box-shadow: 0 4px 24px var(--shadow);
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bouquet-canvas-wrap h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    #bouquet-display {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      align-items: flex-start;
+      min-height: 140px;
+      padding: .8rem;
+      border: 2px dashed var(--parchment);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    #bouquet-display.empty::before {
+      content: 'Select flowers from the gallery above…';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c9b9b0;
+      font-size: .9rem;
+      font-style: italic;
+      pointer-events: none;
+    }
+
+    .bq-flower-chip {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--parchment);
+      border-radius: 99px;
+      padding: .35rem .7rem .35rem .45rem;
+      font-size: .82rem;
+      animation: popIn .25s cubic-bezier(.34,1.56,.64,1);
+    }
+    .bq-flower-chip .bq-emoji { font-size: 1.3rem; }
+    .bq-flower-chip .bq-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: .85rem; padding: 0 .1rem;
+      line-height: 1;
+    }
+    .bq-flower-chip .bq-remove:hover { color: var(--rose); }
+
+    @keyframes popIn {
+      from { transform: scale(.5); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
+    }
+
+    /* Note area */
+    .note-area {
+      margin-top: 1.2rem;
+    }
+    .note-area label {
+      display: block;
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+    .note-area textarea {
+      width: 100%;
+      border: 1px solid var(--parchment);
+      border-radius: 10px;
+      padding: .8rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--ink);
+      resize: vertical;
+      min-height: 90px;
+      outline: none;
+      transition: border-color .2s;
+      background: #fdfaf8;
+    }
+    .note-area textarea:focus { border-color: var(--rose); }
+    .note-area .char-count { font-size: .72rem; color: #c9b9b0; text-align: right; margin-top: .3rem; }
+
+    /* Side panel */
+    .bouquet-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .panel-card {
+      background: white;
+      border-radius: var(--r);
+      padding: 1.5rem;
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+    .panel-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: .8rem;
+      color: var(--ink);
+    }
+
+    .count-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .6rem;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .count-bar strong { color: var(--rose); font-size: 1.2rem; }
+    .progress-track {
+      height: 6px;
+      background: var(--parchment);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blush), var(--rose));
+      border-radius: 99px;
+      transition: width .3s ease;
+    }
+
+    .btn-send {
+      width: 100%;
+      background: var(--rose);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+    .btn-send:hover:not(:disabled) { background: #b8545d; transform: translateY(-1px); }
+    .btn-send:disabled { background: #e0d0ce; cursor: not-allowed; }
+
+    .btn-clear {
+      width: 100%;
+      background: none;
+      border: 1px solid var(--parchment);
+      border-radius: 12px;
+      padding: .7rem;
+      font-size: .87rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-clear:hover { border-color: var(--rose); color: var(--rose); }
+
+    /* Meanings list */
+    .meanings-list { list-style: none; }
+    .meanings-list li {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .82rem;
+      padding: .35rem 0;
+      border-bottom: 1px solid var(--parchment);
+      animation: fadeUp .3s ease both;
+    }
+    .meanings-list li:last-child { border-bottom: none; }
+    .meanings-list li .m-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .meanings-list li .m-name { font-weight: 500; }
+    .meanings-list li .m-meaning { color: var(--muted); }
+
+    /* ── Modal ───────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(43,35,32,.45);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes modalIn {
+      from { transform: scale(.85) translateY(20px); opacity: 0; }
+      to   { transform: scale(1) translateY(0);      opacity: 1; }
+    }
+
+    .modal-box .modal-emoji { font-size: 3.5rem; margin-bottom: 1rem; }
+    .modal-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: .5rem;
+    }
+    .modal-box p { color: var(--muted); font-size: .92rem; margin-bottom: 1.5rem; line-height: 1.6; }
+
+    .share-link-box {
+      display: flex;
+      border: 1px solid var(--parchment);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+    .share-link-box input {
+      flex: 1;
+      border: none;
+      padding: .75rem 1rem;
+      font-size: .82rem;
+      color: var(--ink);
+      background: #fdfaf8;
+      outline: none;
+    }
+    .share-link-box button {
+      background: var(--rose);
+      color: white;
+      border: none;
+      padding: .75rem 1.2rem;
+      font-size: .82rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .share-link-box button:hover { background: #b8545d; }
+
+    .modal-flowers-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .modal-flowers-preview span { font-size: 2rem; }
+
+    .modal-note-display {
+      background: var(--parchment);
+      border-radius: 10px;
+      padding: .9rem 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .btn-modal-close {
+      background: none;
+      border: 1px solid var(--parchment);
+      border-radius: 99px;
+      padding: .6rem 1.6rem;
+      font-size: .87rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .btn-modal-close:hover { border-color: var(--rose); color: var(--rose); }
+
+    /* ── Testimonials ────────────────────────────────────────────── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .testi-card {
+      border-radius: var(--r);
+      padding: 1.8rem 1.5rem;
+      position: relative;
+    }
+    .testi-card .stars { font-size: 1rem; margin-bottom: .8rem; color: var(--gold); }
+    .testi-card blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .testi-card .author { font-size: .8rem; color: var(--muted); }
+    .testi-card .author strong { display: block; font-weight: 500; color: var(--ink); }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: .82rem;
+      border-top: 1px solid var(--parchment);
+    }
+    footer strong { color: var(--rose); font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; }
+
+    /* ── Utilities ───────────────────────────────────────────────── */
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--blush);
+      margin: 1rem 0 2rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--ink);
+      color: white;
+      padding: .75rem 1.6rem;
+      border-radius: 99px;
+      font-size: .87rem;
+      z-index: 2000;
+      transition: transform .3s;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── Hero ─────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-deco">
+    <span>🌹</span><span>🌸</span><span>🌼</span>
+    <span>🌺</span><span>💐</span><span>🌷</span>
+  </div>
+  <div class="badge">✦ Craft & Send Digital Bouquets ✦</div>
+  <h1>Give flowers<br/><em>that last forever.</em></h1>
+  <p class="hero-sub">Choose blooms full of meaning, arrange them into a personal bouquet, add a heartfelt note, and share the link with someone you love.</p>
+  <a href="#bouquet-builder" class="btn-primary">
+    🌸 &nbsp;Start building
+  </a>
+</section>
+
+<!-- ── Flower Gallery ─────────────────────────────────────────────── -->
+<div class="section" style="padding-bottom: 2rem;" id="bouquet-builder">
+  <div class="section-label">The Flower Gallery</div>
+  <h2 class="section-title">Choose your <em>blooms</em></h2>
+  <div class="divider"></div>
+
+  <!-- Birth month banner -->
+  <div id="birth-banner">
+    <div class="bb-icon">🎂</div>
+    <div class="bb-text">
+      <strong>Highlight birth-month flowers</strong>
+      <span>Select a birth month to see which flowers are traditionally associated with it.</span>
+    </div>
+    <div class="birth-month-select">
+      <label for="birth-month-sel">Birth month:</label>
+      <select id="birth-month-sel">
+        <option value="">— none —</option>
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="section-desc">Pick up to 8 flowers. Click to add — click again to remove.</p>
+  <div class="flower-grid" id="flower-grid"></div>
+</div>
+
+<!-- ── Builder ───────────────────────────────────────────────────── -->
+<div style="padding: 0 2rem 5rem;" id="builder-sticky">
+  <section id="builder-section">
+    <div class="section-label">Your Bouquet</div>
+    <h2 class="section-title" style="margin-bottom:2rem;">Arrange &amp; <em>send</em></h2>
+    <div class="builder-inner">
+
+      <!-- Canvas + note -->
+      <div>
+        <div class="bouquet-canvas-wrap">
+          <h3>💐 Bouquet preview</h3>
+          <div id="bouquet-display" class="empty"></div>
+          <div class="note-area">
+            <label for="bouquet-note">Add a personal note <span style="color:#c9b9b0">(optional, max 500 chars)</span></label>
+            <textarea id="bouquet-note" maxlength="500" placeholder="Write something heartfelt…"></textarea>
+            <div class="char-count"><span id="char-num">0</span> / 500</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side panel -->
+      <div class="bouquet-panel">
+        <div class="panel-card">
+          <h4>Flowers selected</h4>
+          <div class="count-bar">
+            <span><strong id="sel-count">0</strong> / 8 chosen</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <h4>Meanings in your bouquet</h4>
+          <ul class="meanings-list" id="meanings-list">
+            <li style="color:#c9b9b0;font-style:italic;font-size:.85rem;border:none;justify-content:center">No flowers selected yet</li>
+          </ul>
+        </div>
+
+        <div class="panel-card" style="display:flex;flex-direction:column;gap:.8rem;">
+          <button class="btn-send" id="btn-send" disabled>
+            💌 &nbsp; Send my bouquet
+          </button>
+          <button class="btn-clear" id="btn-clear">Clear all</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── Testimonials ───────────────────────────────────────────────── -->
+<div class="section" style="background: var(--parchment); max-width:100%; padding: 5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Kind words</div>
+    <h2 class="section-title">Loved by <em>gifters</em> worldwide</h2>
+    <div class="divider"></div>
+    <div class="testimonials-grid" id="testimonials-grid"></div>
+  </div>
+</div>
+
+<!-- ── Footer ────────────────────────────────────────────────────── -->
+<footer>
+  <p>Made with 🌸 by <strong>Bouquetta</strong> — digital flowers for every occasion.</p>
+  <p style="margin-top:.5rem;font-size:.75rem;color:#c9b9b0">Flowers last moments; memories last forever.</p>
+</footer>
+
+<!-- ── Share modal ────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="share-modal">
+  <div class="modal-box">
+    <div class="modal-emoji">💐</div>
+    <h2>Your bouquet is ready!</h2>
+    <p>Your digital bouquet has been created. Copy the link below to share it with someone special.</p>
+    <div class="modal-flowers-preview" id="modal-flowers-preview"></div>
+    <div id="modal-note-display"></div>
+    <div class="share-link-box">
+      <input type="text" id="share-link-input" readonly />
+      <button onclick="copyLink()">Copy link</button>
+    </div>
+    <button class="btn-modal-close" onclick="closeModal()">Done</button>
+  </div>
+</div>
+
+<!-- ── Toast ──────────────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────
+const FLOWERS = [
+  {id:'carnation',    name:'Carnation',     emoji:'🌸', colors:['#F4B6C2','#FAD5DC'], meaning:'Love & admiration',    birthMonths:[0]},
+  {id:'violet',       name:'Violet',        emoji:'💜', colors:['#C9B3D9','#B39DC9'], meaning:'Faithfulness',         birthMonths:[1]},
+  {id:'daffodil',     name:'Daffodil',      emoji:'🌼', colors:['#FFF176','#FFD54F'], meaning:'New beginnings',       birthMonths:[2]},
+  {id:'daisy',        name:'Daisy',         emoji:'🌻', colors:['#FFFFFF','#FFF9C4'], meaning:'Innocence & purity',   birthMonths:[3]},
+  {id:'rose',         name:'Rose',          emoji:'🌹', colors:['#F44336','#EF9A9A'], meaning:'Deep love',            birthMonths:[4]},
+  {id:'waterlily',    name:'Water Lily',    emoji:'🪷', colors:['#E1F5FE','#B3E5FC'], meaning:'Purity of heart',     birthMonths:[5]},
+  {id:'gladiolus',    name:'Gladiolus',     emoji:'🌺', colors:['#F48FB1','#E91E8C'], meaning:'Strength & integrity', birthMonths:[7]},
+  {id:'morningglory', name:'Morning Glory', emoji:'💐', colors:['#9575CD','#7E57C2'], meaning:'Affection',            birthMonths:[8]},
+  {id:'marigold',     name:'Marigold',      emoji:'🌼', colors:['#FF8F00','#FFB300'], meaning:'Warmth & creativity',  birthMonths:[9]},
+  {id:'peony',        name:'Peony',         emoji:'🌸', colors:['#F8BBD9','#F48FB1'], meaning:'Romance & prosperity', birthMonths:[10]},
+  {id:'narcissus',    name:'Narcissus',     emoji:'🌷', colors:['#FFF9C4','#FFCC80'], meaning:'Self-love & rebirth',  birthMonths:[11]},
+  {id:'lily',         name:'Lily',          emoji:'💐', colors:['#FFF0E0','#FFCC99'], meaning:'Majesty & grace',      birthMonths:[4,5]},
+  {id:'lavender',     name:'Lavender',      emoji:'💜', colors:['#E8D5F5','#C9A9E0'], meaning:'Devotion & calm',      birthMonths:[6]},
+  {id:'sunflower',    name:'Sunflower',     emoji:'🌻', colors:['#FFD600','#FF8F00'], meaning:'Adoration & loyalty',  birthMonths:[7,8]},
+  {id:'aster',        name:'Aster',         emoji:'🌸', colors:['#CE93D8','#AB47BC'], meaning:'Patience & love',      birthMonths:[8]},
+  {id:'chrysanthemum',name:'Chrysanthemum', emoji:'🌸', colors:['#FFCC02','#FFA000'], meaning:'Longevity & joy',      birthMonths:[10,11]},
+  {id:'snowdrop',     name:'Snowdrop',      emoji:'🌷', colors:['#F8F8FF','#E8EAF6'], meaning:'Hope & consolation',   birthMonths:[0,1]},
+  {id:'jasmine',      name:'Jasmine',       emoji:'🌼', colors:['#FFFDE7','#FFF9C4'], meaning:'Purity & grace',       birthMonths:[6]},
+];
+
+const BIRTH_MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+const TESTIMONIALS = [
+  {text:"I built a bouquet for my mum's birthday and it moved her to tears — Bouquetta is pure magic.", author:'Amara T.', city:'London, UK', stars:5, bg:'#FCE4EC'},
+  {text:"The flower meanings are so thoughtful. I could spend ages crafting the perfect combination.", author:'Seo-yeon P.', city:'Seoul, KR', stars:5, bg:'#E8F5E9'},
+  {text:"Sent a bouquet to my best friend across the world. She kept it as her phone wallpaper for months!", author:'Lucia M.', city:'São Paulo, BR', stars:5, bg:'#FFF8E1'},
+];
+
+// ── State ─────────────────────────────────────────────────────────
+let selected = [];
+let birthMonth = null;
+
+// ── Render flowers ────────────────────────────────────────────────
+function renderFlowers() {
+  const grid = document.getElementById('flower-grid');
+  grid.innerHTML = '';
+  FLOWERS.forEach(f => {
+    const isSel = selected.includes(f.id);
+    const isBirth = birthMonth !== null && f.birthMonths.includes(birthMonth);
+    const card = document.createElement('div');
+    card.className = 'flower-card' + (isSel ? ' selected' : '') + (isBirth ? ' birth-flower' : '');
+    card.dataset.id = f.id;
+    card.innerHTML = `
+      <div class="flower-svg-wrap" style="background:${f.colors[1]}20;">
+        <span style="font-size:2.6rem">${f.emoji}</span>
+      </div>
+      <div class="f-name">${f.name}</div>
+      <div class="f-meaning">${f.meaning}</div>
+      ${isBirth ? `<div class="f-birth-tag">🎂 ${BIRTH_MONTH_NAMES[birthMonth]} flower</div>` : ''}
+    `;
+    card.addEventListener('click', () => toggleFlower(f.id));
+    grid.appendChild(card);
+  });
+}
+
+function toggleFlower(id) {
+  if (selected.includes(id)) {
+    selected = selected.filter(x => x !== id);
+  } else {
+    if (selected.length >= 8) { showToast('Maximum 8 flowers per bouquet 🌸'); return; }
+    selected.push(id);
+  }
+  renderFlowers();
+  renderBouquet();
+  renderPanel();
+}
+
+// ── Render bouquet preview ────────────────────────────────────────
+function renderBouquet() {
+  const display = document.getElementById('bouquet-display');
+  display.innerHTML = '';
+  if (selected.length === 0) {
+    display.classList.add('empty');
+    return;
+  }
+  display.classList.remove('empty');
+  selected.forEach(id => {
+    const f = FLOWERS.find(x => x.id === id);
+    if (!f) return;
+    const chip = document.createElement('div');
+    chip.className = 'bq-flower-chip';
+    chip.innerHTML = `
+      <span class="bq-emoji">${f.emoji}</span>
+      <span>${f.name}</span>
+      <button class="bq-remove" title="Remove" onclick="toggleFlower('${f.id}')">✕</button>
+    `;
+    display.appendChild(chip);
+  });
+}
+
+// ── Render panel ──────────────────────────────────────────────────
+function renderPanel() {
+  const count = selected.length;
+  document.getElementById('sel-count').textContent = count;
+  document.getElementById('progress-fill').style.width = `${(count / 8) * 100}%`;
+  document.getElementById('btn-send').disabled = count === 0;
+
+  const ml = document.getElementById('meanings-list');
+  ml.innerHTML = '';
+  if (count === 0) {
+    ml.innerHTML = '<li style="color:#c9b9b0;font-style:italic;font-size:.85rem;border:none;justify-content:center">No flowers selected yet</li>';
+    return;
+  }
+  selected.forEach(id => {
+    const f = FLOWERS.find(x => x.id === id);
+    if (!f) return;
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div class="m-dot" style="background:${f.colors[0]}"></div>
+      <span class="m-name">${f.emoji} ${f.name}</span>
+      <span class="m-meaning">— ${f.meaning}</span>
+    `;
+    ml.appendChild(li);
+  });
+}
+
+// ── Testimonials ──────────────────────────────────────────────────
+function renderTestimonials() {
+  const grid = document.getElementById('testimonials-grid');
+  TESTIMONIALS.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'testi-card';
+    card.style.background = t.bg;
+    card.innerHTML = `
+      <div class="stars">${'★'.repeat(t.stars)}</div>
+      <blockquote>"${t.text}"</blockquote>
+      <div class="author">
+        <strong>${t.author}</strong>
+        ${t.city}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ── Send bouquet ──────────────────────────────────────────────────
+document.getElementById('btn-send').addEventListener('click', () => {
+  const note = document.getElementById('bouquet-note').value.trim();
+  const code = Math.random().toString(36).slice(2, 10).toUpperCase();
+  const params = new URLSearchParams({ flowers: selected.join(','), note, code });
+  const shareUrl = `${location.origin}${location.pathname}bouquet.html?${params.toString()}`;
+
+  // Save to sessionStorage
+  sessionStorage.setItem(`bouquet_${code}`, JSON.stringify({ flowers: selected, note, code, created_at: new Date().toISOString() }));
+
+  // Show modal
+  document.getElementById('share-link-input').value = shareUrl;
+  const preview = document.getElementById('modal-flowers-preview');
+  preview.innerHTML = selected.map(id => {
+    const f = FLOWERS.find(x => x.id === id);
+    return `<span title="${f.name}">${f.emoji}</span>`;
+  }).join('');
+  const noteDisplay = document.getElementById('modal-note-display');
+  noteDisplay.innerHTML = note ? `<div class="modal-note-display">"${note}"</div>` : '';
+  document.getElementById('share-modal').classList.add('open');
+});
+
+// ── Birth month ───────────────────────────────────────────────────
+document.getElementById('birth-month-sel').addEventListener('change', e => {
+  birthMonth = e.target.value === '' ? null : parseInt(e.target.value);
+  renderFlowers();
+});
+
+// ── Note char count ───────────────────────────────────────────────
+document.getElementById('bouquet-note').addEventListener('input', e => {
+  document.getElementById('char-num').textContent = e.target.value.length;
+});
+
+// ── Clear ─────────────────────────────────────────────────────────
+document.getElementById('btn-clear').addEventListener('click', () => {
+  selected = [];
+  document.getElementById('bouquet-note').value = '';
+  document.getElementById('char-num').textContent = '0';
+  renderFlowers();
+  renderBouquet();
+  renderPanel();
+});
+
+// ── Modal helpers ─────────────────────────────────────────────────
+function closeModal() { document.getElementById('share-modal').classList.remove('open'); }
+document.getElementById('share-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+function copyLink() {
+  const val = document.getElementById('share-link-input').value;
+  navigator.clipboard.writeText(val).then(() => showToast('Link copied! ✓')).catch(() => {
+    document.getElementById('share-link-input').select();
+    document.execCommand('copy');
+    showToast('Link copied! ✓');
+  });
+}
+
+// ── Toast ─────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── Init ──────────────────────────────────────────────────────────
+renderFlowers();
+renderBouquet();
+renderPanel();
+renderTestimonials();
+</script>
+</body>
+</html>
