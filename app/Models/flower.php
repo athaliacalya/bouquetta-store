@@ -9,7 +9,7 @@ class Flower extends Model
 {
     protected $fillable = [
         'slug', 'name', 'meaning', 'price',
-        'color_primary', 'color_secondary', 'sort_order', 'is_active', 'image_path',
+        'color_primary', 'color_secondary', 'sort_order', 'is_active', 'image_path', 'description',
     ];
 
     protected $casts = [

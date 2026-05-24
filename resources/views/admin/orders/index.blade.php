@@ -14,7 +14,7 @@
                    placeholder="Cari no. pesanan, nama, atau email…" style="max-width:300px">
             <select name="status">
                 <option value="">Semua Status</option>
-                @foreach(['pending'=>'⏳ Pending','processing'=>'⚙️ Diproses','shipped'=>'🚚 Dikirim','delivered'=>'✅ Terkirim','cancelled'=>'❌ Dibatalkan'] as $val=>$label)
+                @foreach(['pending'=>'Pending','processing'=>'Diproses','shipped'=>'Dikirim','delivered'=>'Terkirim','cancelled'=>'Dibatalkan'] as $val=>$label)
                     <option value="{{ $val }}" {{ request('status') === $val ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
@@ -42,14 +42,14 @@
                 @forelse($orders as $order)
                 @php
                 $statusMap = [
-                    'pending'    => ['warning',   '⏳'],
-                    'processing' => ['info',      '⚙️'],
-                    'shipped'    => ['purple',    '🚚'],
-                    'delivered'  => ['success',   '✅'],
-                    'cancelled'  => ['danger',    '❌'],
+                    'pending'    => ['warning', 'icons8-hourglass-64.png'],
+                    'processing' => ['info',    'icons8-setting-64.png'],
+                    'shipped'    => ['purple',  'icons8-shipped-64.png'],
+                    'delivered'  => ['success', 'icons8-check-64.png'],
+                    'cancelled'  => ['danger',  'icons8-cancel-64.png'],
                 ];
                 $payMap = ['unpaid'=>'warning','paid'=>'success','refunded'=>'danger'];
-                [$sCls, $sIco] = $statusMap[$order->status] ?? ['secondary','❓'];
+                [$sCls, $sIco] = $statusMap[$order->status] ?? ['secondary', null];
                 @endphp
                 <tr>
                     <td><strong style="font-family:monospace">{{ $order->order_number }}</strong></td>
@@ -60,7 +60,14 @@
                     </td>
                     <td style="color:#555">{{ $order->delivery_city ?: '-' }}</td>
                     <td><strong>Rp {{ number_format($order->total, 0, ',', '.') }}</strong></td>
-                    <td><span class="badge badge-{{ $sCls }}">{{ $sIco }} {{ ucfirst($order->status) }}</span></td>
+                    <td>
+                        <span class="badge badge-{{ $sCls }}" style="display:inline-flex;align-items:center;gap:.35rem">
+                            @if($sIco)
+                                <img src="{{ asset('images/icons/' . $sIco) }}" style="width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(1)">
+                            @endif
+                            {{ ucfirst($order->status) }}
+                        </span>
+                    </td>
                     <td>
                         <span class="badge badge-{{ $payMap[$order->payment_status] ?? 'secondary' }}">
                             {{ ucfirst($order->payment_status) }}
@@ -76,7 +83,9 @@
                             <form action="{{ route('admin.orders.destroy', $order) }}" method="POST"
                                   onsubmit="return confirm('Hapus pesanan {{ $order->order_number }}?')">
                                 @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-danger">🗑️</button>
+                                <button class="btn btn-sm btn-danger">
+                                    <img src="{{ asset('images/icons/icons8-trash-100.png') }}" alt="Delete" width="18">
+                                </button>
                             </form>
                         </div>
                     </td>

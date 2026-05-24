@@ -11,7 +11,7 @@
                     <div style="width:38px;height:38px;border-radius:50%;background:{{ $user->role==='admin'?'var(--pink)':'#6c757d' }};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">
                         {{ strtoupper(substr($user->name,0,1)) }}
                     </div>
-                    ✏️ {{ $user->name }}
+                     {{ $user->name }}
                 </div>
             </h3>
             <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-secondary">← Kembali</a>
@@ -38,8 +38,8 @@
                     <div class="form-group">
                         <label>Role <span style="color:red">*</span></label>
                         <select name="role" required {{ $user->id === auth()->id() ? 'disabled' : '' }}>
-                            <option value="customer" {{ old('role', $user->role)==='customer' ? 'selected' : '' }}>👤 Customer</option>
-                            <option value="admin"    {{ old('role', $user->role)==='admin'    ? 'selected' : '' }}>👑 Admin</option>
+                            <option value="customer" {{ old('role', $user->role)==='customer' ? 'selected' : '' }}>Customer</option>
+                            <option value="admin"    {{ old('role', $user->role)==='admin'    ? 'selected' : '' }}>Admin</option>
                         </select>
                         @if($user->id === auth()->id())
                             <input type="hidden" name="role" value="{{ $user->role }}">
@@ -88,13 +88,13 @@
                 </div>
 
                 <div style="display:flex;gap:1rem;margin-top:.5rem">
-                    <button type="submit" class="btn btn-pink">💾 Perbarui</button>
+                    <button type="submit" class="btn btn-pink">Perbarui</button>
                     <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Batal</a>
                     @if($user->id !== auth()->id())
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="margin-left:auto"
                           onsubmit="return confirm('Hapus pengguna {{ $user->name }}? Tindakan ini tidak bisa dibatalkan.')">
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">🗑️ Hapus Akun</button>
+                        <button type="submit" class="btn btn-danger">Hapus Akun</button>
                     </form>
                     @endif
                 </div>
@@ -104,7 +104,7 @@
 
     {{-- USER STATS --}}
     <div class="card" style="margin-top:1.5rem">
-        <div class="card-header"><h3>📊 Info Akun</h3></div>
+        <div class="card-header"><h3>Info Akun</h3></div>
         <div class="card-body">
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;text-align:center">
                 <div>

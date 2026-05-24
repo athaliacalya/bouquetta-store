@@ -100,6 +100,7 @@
     <a href="{{ route('home') }}" class="nav-logo">Bouquet<span>ta</span></a>
     <div class="nav-links">
         <a href="{{ route('home') }}">Beranda</a>
+        <a href="{{ route('custom-bouquet.index') }}">Custom Bouquet</a>
         <a href="{{ route('home') }}#builder">Buat Bouquet</a>
         <a href="{{ route('home') }}#bestsellers">Koleksi</a>
         <a href="{{ route('home') }}#about">Tentang</a>

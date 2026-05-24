@@ -1,57 +1,114 @@
 <?php
-// app/Models/Bouquet.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bouquet extends Model
 {
     protected $fillable = [
-        'code', 'flower_ids', 'message',
-        'recipient', 'sender', 'total_price', 'status', 'ip_address',
+        'user_id',
+        'code',
+        'name',
+        'type',          // custom | ready
+        'flower_ids',
+        'message',
+        'ip_address',
+        'total_price',
+        'total_stems',
+        'status',        // draft | pending | ordered | delivered
     ];
 
     protected $casts = [
         'flower_ids'  => 'array',
         'total_price' => 'integer',
+        'total_stems' => 'integer',
     ];
 
-    /**
-     * Generate a unique share code before creating.
-     */
-    protected static function booted(): void
+    // ─────────────────────────────────────────────────────────────
+    // Relations
+    // ─────────────────────────────────────────────────────────────
+
+    public function user(): BelongsTo
     {
-        static::creating(function (Bouquet $bouquet) {
-            if (empty($bouquet->code)) {
-                $bouquet->code = strtoupper(Str::random(8));
-            }
-        });
+        return $this->belongsTo(User::class);
     }
 
+    /**
+     * Relasi bunga dalam bouquet
+     * Menggunakan pivot quantity
+     */
+    public function flowers(): BelongsToMany
+    {
+        return $this->belongsToMany(Flower::class, 'bouquet_flowers')
+            ->withPivot('quantity')
+            ->withTimestamps();
+    }
+
+    /**
+     * Relasi cart items
+     */
+    public function cartItems(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    /**
+     * Relasi order
+     */
     public function order()
     {
         return $this->hasOne(Order::class);
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // Accessors
+    // ─────────────────────────────────────────────────────────────
+
     /**
-     * Calculate total price based on flowers.
+     * Format harga rupiah
      */
-    public function calculatePrice(): int
+    public function getFormattedPriceAttribute(): string
     {
-        $flowers = Flower::whereIn('slug', $this->flower_ids ?? [])->get();
-        $perFlower = $flowers->sum('price');
-        return $perFlower;
+        return 'Rp ' . number_format($this->total_price, 0, ',', '.');
     }
 
-    public function getTotalFormattedAttribute(): string
+    /**
+     * Ringkasan isi bunga
+     * contoh: Rose ×2, Lily ×3
+     */
+    public function getFlowerSummaryAttribute(): string
     {
-        return 'IDR ' . number_format($this->total_price, 0, ',', '.');
+        // Jika memakai relasi flowers
+        if ($this->relationLoaded('flowers') || $this->flowers()->exists()) {
+            return $this->flowers
+                ->map(fn($f) => $f->name . ' ×' . $f->pivot->quantity)
+                ->implode(', ');
+        }
+
+        // Fallback jika hanya memakai flower_ids
+        if (is_array($this->flower_ids)) {
+            return implode(', ', $this->flower_ids);
+        }
+
+        return '-';
     }
 
-    public function getShareUrlAttribute(): string
+    /**
+     * Badge status untuk UI
+     */
+    public function getStatusBadgeAttribute(): string
     {
-        return route('bouquet.view', $this->code);
+        return match ($this->status) {
+            'draft'     => 'secondary',
+            'pending'   => 'warning',
+            'ordered'   => 'info',
+            'delivered' => 'success',
+            'cancelled' => 'danger',
+            default     => 'secondary',
+        };
     }
 }

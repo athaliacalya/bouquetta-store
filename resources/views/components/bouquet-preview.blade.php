@@ -23,7 +23,7 @@
                  id="emptyMsg">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                     <circle cx="30" cy="30" r="28" stroke="#C8C2A3" stroke-width="1.5" stroke-dasharray="4 4"/>
-                    <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="26">🌿</text>
+                    <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="26"></text>
                 </svg>
                 <p class="font-hand text-sage-dark text-center text-lg">
                     Your bouquet is empty.<br/>Pick some blooms! ✨

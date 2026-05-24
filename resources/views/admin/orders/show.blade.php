@@ -5,28 +5,38 @@
 @section('content')
 @php
 $statusMap = [
-    'pending'    => ['warning', '⏳'],
-    'processing' => ['info',    '⚙️'],
-    'shipped'    => ['purple',  '🚚'],
-    'delivered'  => ['success', '✅'],
-    'cancelled'  => ['danger',  '❌'],
+    'pending'    => ['warning', 'icons8-hourglass-64.png'],
+    'processing' => ['info',    'icons8-setting-64.png'],
+    'shipped'    => ['purple',  'icons8-shipped-64.png'],
+    'delivered'  => ['success', 'icons8-check-64.png'],
+    'cancelled'  => ['danger',  'icons8-cancel-64.png'],
 ];
 $payMap = ['unpaid'=>'warning','paid'=>'success','refunded'=>'danger'];
-[$sCls,$sIco] = $statusMap[$order->status] ?? ['secondary','❓'];
+[$sCls, $sIco] = $statusMap[$order->status] ?? ['secondary', null];
 
 $flowerImgMap = [
-    'anemone'=>'/images/flowers/anemonen.webp','carnation'=>'/images/flowers/carnationn.webp',
-    'daisy'=>'/images/flowers/daisyn.webp','rose'=>'/images/flowers/rosen.webp',
-    'sunflower'=>'/images/flowers/sunflowern.webp','tulip'=>'/images/flowers/tulipn.webp',
-    'orchid'=>'/images/flowers/orchidn.webp','peony'=>'/images/flowers/peonyn.webp',
-    'lily'=>'/images/flowers/lilyns.webp','ranunculus'=>'/images/flowers/ranunculusn.webp',
+    'anemone'    => '/images/flowers/anemonen.webp',
+    'carnation'  => '/images/flowers/carnationn.webp',
+    'daisy'      => '/images/flowers/daisyn.webp',
+    'rose'       => '/images/flowers/rosen.webp',
+    'sunflower'  => '/images/flowers/sunflowern.webp',
+    'tulip'      => '/images/flowers/tulipn.webp',
+    'orchid'     => '/images/flowers/orchidn.webp',
+    'peony'      => '/images/flowers/peonyn.webp',
+    'lily'       => '/images/flowers/lilyns.webp',
+    'ranunculus' => '/images/flowers/ranunculusn.webp',
 ];
 @endphp
 
 <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
     <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-secondary">← Kembali</a>
     <h2 style="font-size:1.1rem;font-weight:700;font-family:monospace">{{ $order->order_number }}</h2>
-    <span class="badge badge-{{ $sCls }}">{{ $sIco }} {{ ucfirst($order->status) }}</span>
+    <span class="badge badge-{{ $sCls }}" style="display:inline-flex;align-items:center;gap:.35rem">
+        @if($sIco)
+            <img src="{{ asset('images/icons/' . $sIco) }}" style="width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(1)">
+        @endif
+        {{ ucfirst($order->status) }}
+    </span>
     <span class="badge badge-{{ $payMap[$order->payment_status] ?? 'secondary' }}">
         {{ ucfirst($order->payment_status) }}
     </span>
@@ -39,7 +49,7 @@ $flowerImgMap = [
 
         {{-- CUSTOMER INFO --}}
         <div class="card">
-            <div class="card-header"><h3>👤 Informasi Pelanggan</h3></div>
+            <div class="card-header"><h3>Informasi Pelanggan</h3></div>
             <div class="card-body">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
                     <div>
@@ -76,11 +86,10 @@ $flowerImgMap = [
         @if($order->bouquet)
         <div class="card">
             <div class="card-header">
-                <h3>🌸 Detail Bouquet</h3>
+                <h3>Detail Bouquet</h3>
                 <span style="font-family:monospace;font-size:.8rem;color:#888">{{ $order->bouquet->code }}</span>
             </div>
             <div class="card-body">
-                {{-- Flower images --}}
                 @php $flowerIds = $order->bouquet->flower_ids ?? []; @endphp
                 @if(count($flowerIds))
                 <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
@@ -115,7 +124,7 @@ $flowerImgMap = [
 
                 @if($order->personal_letter)
                 <div style="background:#fff8f0;border-left:3px solid var(--pink);padding:.75rem 1rem;border-radius:0 8px 8px 0">
-                    <div style="font-size:.78rem;color:#888;margin-bottom:.3rem">💌 Pesan Personal</div>
+                    <div style="font-size:.78rem;color:#888;margin-bottom:.3rem">Pesan Personal</div>
                     <p style="font-style:italic;color:#333;line-height:1.6">{{ $order->personal_letter }}</p>
                 </div>
                 @endif
@@ -130,7 +139,7 @@ $flowerImgMap = [
 
         {{-- SUMMARY --}}
         <div class="card">
-            <div class="card-header"><h3>💰 Ringkasan Harga</h3></div>
+            <div class="card-header"><h3>Ringkasan Harga</h3></div>
             <div class="card-body">
                 <div style="display:flex;flex-direction:column;gap:.6rem">
                     <div style="display:flex;justify-content:space-between">
@@ -155,15 +164,23 @@ $flowerImgMap = [
 
         {{-- UPDATE STATUS --}}
         <div class="card">
-            <div class="card-header"><h3>⚙️ Perbarui Status</h3></div>
+            <div class="card-header"><h3>Perbarui Status</h3></div>
             <div class="card-body">
                 <form action="{{ route('admin.orders.update', $order) }}" method="POST">
                     @csrf @method('PUT')
                     <div class="form-group">
                         <label>Status Pesanan</label>
                         <select name="status">
-                            @foreach(['pending'=>'Pending','processing'=>'Diproses','shipped'=>'Dikirim','delivered'=>'Terkirim','cancelled'=>'Dibatalkan'] as $val=>$label)
-                                <option value="{{ $val }}" {{ $order->status === $val ? 'selected' : '' }}>{{ $label }}</option>
+                            @foreach([
+                                'pending'    => 'Pending',
+                                'processing' => 'Diproses',
+                                'shipped'    => 'Dikirim',
+                                'delivered'  => 'Terkirim',
+                                'cancelled'  => 'Dibatalkan'
+                            ] as $val => $label)
+                                <option value="{{ $val }}" {{ $order->status === $val ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -183,10 +200,10 @@ $flowerImgMap = [
         {{-- LINKED USER --}}
         @if($order->user)
         <div class="card">
-            <div class="card-header"><h3>👤 Akun Pelanggan</h3></div>
+            <div class="card-header"><h3>Akun Pelanggan</h3></div>
             <div class="card-body" style="display:flex;gap:1rem;align-items:center">
                 <div style="width:44px;height:44px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">
-                    {{ strtoupper(substr($order->user->name,0,1)) }}
+                    {{ strtoupper(substr($order->user->name, 0, 1)) }}
                 </div>
                 <div>
                     <strong>{{ $order->user->name }}</strong>

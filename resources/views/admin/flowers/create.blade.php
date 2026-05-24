@@ -6,7 +6,7 @@
 <div style="max-width:760px">
     <div class="card">
         <div class="card-header">
-            <h3>🌸 Form Tambah Bunga</h3>
+            <h3>Form Tambah Bunga</h3>
             <a href="{{ route('admin.flowers.index') }}" class="btn btn-sm btn-secondary">← Kembali</a>
         </div>
         <div class="card-body">
@@ -95,7 +95,7 @@
                 </div>
 
                 <div style="display:flex;gap:1rem;margin-top:.5rem">
-                    <button type="submit" class="btn btn-pink">💾 Simpan Bunga</button>
+                    <button type="submit" class="btn btn-pink">Simpan Bunga</button>
                     <a href="{{ route('admin.flowers.index') }}" class="btn btn-secondary">Batal</a>
                 </div>
             </form>

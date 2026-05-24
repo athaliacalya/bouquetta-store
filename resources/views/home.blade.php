@@ -215,14 +215,14 @@
         </div>
 
         <div style="margin-bottom:1.5rem">
-            <label style="font-weight:600;display:block;margin-bottom:.5rem">📝 Tulis Surat Personal (opsional)</label>
+            <label style="font-weight:600;display:block;margin-bottom:.5rem">Tulis Surat Personal (opsional)</label>
             <textarea class="letter-box" id="personalLetter" placeholder="Tulis pesan atau surat untuk orang spesialmu di sini... &#10;&#10;Contoh: 'Untuk kamu yang selalu menerangi hariku seperti matahari pagi. Bouquet ini aku rangkai dengan cinta, memilih setiap bunga yang menggambarkan perasaanku...'" maxlength="1000"></textarea>
             <p style="font-size:.8rem;color:#aaa;text-align:right"><span id="letterCount">0</span>/1000 karakter</p>
         </div>
 
         <div class="builder-actions">
             <button class="btn btn-pink" onclick="addCustomToCart()" id="btnAddCart">
-                 Tambah ke Keranjang
+                Tambah ke Keranjang
             </button>
             <a href="{{ route('cart.index') }}" class="btn btn-outline-pink">Lihat Keranjang</a>
         </div>
@@ -370,7 +370,7 @@ async function addPresetToCart(productName, price) {
 async function postToCart(name, flowerIds, message, price) {
     const btn = document.getElementById('btnAddCart');
     const origText = btn ? btn.innerHTML : '';
-    if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Menambahkan...'; }
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Menambahkan...'; }
 
     try {
         const resp = await fetch('/cart/add', {

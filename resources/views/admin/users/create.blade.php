@@ -6,7 +6,7 @@
 <div style="max-width:680px">
     <div class="card">
         <div class="card-header">
-            <h3>👤 Form Tambah Pengguna</h3>
+            <h3>Form Tambah Pengguna</h3>
             <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-secondary">← Kembali</a>
         </div>
         <div class="card-body">
@@ -32,8 +32,8 @@
                     <div class="form-group">
                         <label>Role <span style="color:red">*</span></label>
                         <select name="role" required>
-                            <option value="customer" {{ old('role','customer')==='customer' ? 'selected' : '' }}>👤 Customer</option>
-                            <option value="admin"    {{ old('role')==='admin' ? 'selected' : '' }}>👑 Admin</option>
+                            <option value="customer" {{ old('role','customer')==='customer' ? 'selected' : '' }}>Customer</option>
+                            <option value="admin"    {{ old('role')==='admin' ? 'selected' : '' }}>Admin</option>
                         </select>
                         @error('role')<div class="error-msg">{{ $message }}</div>@enderror
                     </div>
@@ -68,7 +68,7 @@
                 </div>
 
                 <div style="display:flex;gap:1rem;margin-top:.5rem">
-                    <button type="submit" class="btn btn-pink">💾 Simpan</button>
+                    <button type="submit" class="btn btn-pink">Simpan</button>
                     <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Batal</a>
                 </div>
             </form>

@@ -6,7 +6,7 @@
 <div style="max-width:760px">
     <div class="card">
         <div class="card-header">
-            <h3>✏️ Edit Bunga</h3>
+            <h3>Edit Bunga</h3>
             <a href="{{ route('admin.flowers.index') }}" class="btn btn-sm btn-secondary">← Kembali</a>
         </div>
         <div class="card-body">
@@ -32,6 +32,7 @@
                 </div>
             </div>
 
+            {{-- FORM EDIT --}}
             <form action="{{ route('admin.flowers.update', $flower) }}" method="POST">
                 @csrf @method('PUT')
 
@@ -115,16 +116,25 @@
                     <textarea name="description" rows="3">{{ old('description', $flower->description) }}</textarea>
                 </div>
 
-                <div style="display:flex;gap:1rem;margin-top:.5rem">
-                    <button type="submit" class="btn btn-pink">💾 Perbarui</button>
+                {{-- Tombol aksi — form hapus dipindah ke LUAR form ini --}}
+                <div style="display:flex;gap:1rem;margin-top:.5rem;align-items:center">
+                    <button type="submit" class="btn btn-pink">Perbarui</button>
                     <a href="{{ route('admin.flowers.index') }}" class="btn btn-secondary">Batal</a>
-                    <form action="{{ route('admin.flowers.destroy', $flower) }}" method="POST" style="margin-left:auto"
-                          onsubmit="return confirm('Hapus bunga {{ $flower->name }}? Data tidak bisa dikembalikan.')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">🗑️ Hapus</button>
-                    </form>
+                    {{-- Tombol hapus menggunakan form terpisah via id --}}
+                    <button type="submit" form="form-delete-flower" class="btn btn-danger" style="margin-left:auto"
+                            onclick="return confirm('Hapus bunga {{ $flower->name }}? Data tidak bisa dikembalikan.')">
+                        <img src="{{ asset('images/icons/icons8-trash-100.png') }}" style="width:16px;height:16px;object-fit:contain;filter:brightness(0) invert(1);vertical-align:middle"> Hapus
+                    </button>
                 </div>
             </form>
+
+            {{-- FORM HAPUS — di luar form edit --}}
+            <form id="form-delete-flower"
+                  action="{{ route('admin.flowers.destroy', $flower) }}"
+                  method="POST" style="display:none">
+                @csrf @method('DELETE')
+            </form>
+
         </div>
     </div>
 </div>

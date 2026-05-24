@@ -240,7 +240,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
             <!-- ORDER SUMMARY -->
             <div class="order-summary-sticky">
                 <div class="order-summary-card">
-                    <h3>📋 Ringkasan Pesanan</h3>
+                    <h3>Ringkasan Pesanan</h3>
                     @foreach($cartItems as $item)
                     <div class="order-item">
                         <div class="order-item-icon">

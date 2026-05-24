@@ -480,7 +480,7 @@ if (clearBtn) {
     bouquet = [];
     document.querySelectorAll('.flower-chip').forEach(c => c.classList.remove('selected'));
     renderBouquet();
-    showToast('Bouquet cleared 🌿');
+    showToast('Bouquet cleared');
   });
 }
 
