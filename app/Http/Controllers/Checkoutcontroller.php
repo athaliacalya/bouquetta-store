@@ -54,7 +54,7 @@ class CheckoutController extends Controller
         $subtotal    = $cartItems->sum(fn($i) => $i->price * $i->quantity);
         $deliveryFee = 25000;
 
-        // Create a bouquet record for the first cart item
+        // Buat bouquet dari item pertama di keranjang
         $firstItem = $cartItems->first();
         $bouquet = Bouquet::create([
             'code'        => strtoupper(Str::random(8)),
@@ -85,7 +85,7 @@ class CheckoutController extends Controller
             'payment_status'   => 'unpaid',
         ]);
 
-        // Clear cart
+        // Kosongkan keranjang
         CartItem::where('session_id', $this->sessionId())->delete();
 
         return redirect()->route('checkout.success', $order->order_number)
@@ -95,6 +95,36 @@ class CheckoutController extends Controller
     public function success(string $orderNumber)
     {
         $order = Order::where('order_number', $orderNumber)->firstOrFail();
-        return view('pages.checkout-success', compact('order'));
+
+        // Info rekening bank (sesuaikan dengan data toko kamu)
+        $bankAccounts = [
+            [
+                'name'    => 'Bank BCA',
+                'code'    => 'BCA',
+                'color'   => '#005BAC',
+                'number'  => '1234567890',
+                'an'      => 'Bouquetta Store',
+            ],
+            [
+                'name'    => 'Bank Mandiri',
+                'code'    => 'MDR',
+                'color'   => '#003D79',
+                'number'  => '1400012345678',
+                'an'      => 'Bouquetta Store',
+            ],
+            [
+                'name'    => 'Bank BRI',
+                'code'    => 'BRI',
+                'color'   => '#003E7E',
+                'number'  => '123401012345678',
+                'an'      => 'Bouquetta Store',
+            ],
+        ];
+
+        // Path QR QRIS — letakkan file di public/images/qris.png
+        $qrisImagePath = public_path('images/qris.png');
+        $hasQris       = file_exists($qrisImagePath);
+
+        return view('pages.checkout-success', compact('order', 'bankAccounts', 'hasQris'));
     }
 }

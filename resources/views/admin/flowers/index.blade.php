@@ -5,14 +5,14 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3>🌸 Daftar Bunga</h3>
+        <h3>Daftar Bunga</h3>
         <a href="{{ route('admin.flowers.create') }}" class="btn btn-pink">+ Tambah Bunga</a>
     </div>
     <div class="card-body" style="padding-bottom:.5rem">
         {{-- SEARCH --}}
         <form method="GET" class="search-bar" style="margin-bottom:1.25rem">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama atau makna bunga…" style="max-width:340px">
-            <button type="submit" class="btn btn-pink">🔍 Cari</button>
+            <button type="submit" class="btn btn-pink">Cari</button>
             @if(request('search'))
                 <a href="{{ route('admin.flowers.index') }}" class="btn btn-secondary">✕ Reset</a>
             @endif
@@ -58,18 +58,18 @@
                     <td style="text-align:center">{{ $flower->sort_order }}</td>
                     <td>
                         @if($flower->is_active)
-                            <span class="badge badge-success">✅ Aktif</span>
+                            <span class="badge badge-success"> Aktif</span>
                         @else
-                            <span class="badge badge-danger">❌ Nonaktif</span>
+                            <span class="badge badge-danger"> Nonaktif</span>
                         @endif
                     </td>
                     <td>
                         <div style="display:flex;gap:.4rem">
-                            <a href="{{ route('admin.flowers.edit', $flower) }}" class="btn btn-sm btn-warning">✏️ Edit</a>
+                            <a href="{{ route('admin.flowers.edit', $flower) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('admin.flowers.destroy', $flower) }}" method="POST"
                                   onsubmit="return confirm('Hapus bunga {{ $flower->name }}?')">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+                                <button type="submit" class="btn btn-sm btn-danger"><img src="{{ asset('images/icons/icons8-trash-100.png') }}" style="width:14px;height:14px;"></button>
                             </form>
                         </div>
                     </td>

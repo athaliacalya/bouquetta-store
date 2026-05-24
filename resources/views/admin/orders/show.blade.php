@@ -162,7 +162,7 @@ $flowerImgMap = [
                     <div class="form-group">
                         <label>Status Pesanan</label>
                         <select name="status">
-                            @foreach(['pending'=>'⏳ Pending','processing'=>'⚙️ Diproses','shipped'=>'🚚 Dikirim','delivered'=>'✅ Terkirim','cancelled'=>'❌ Dibatalkan'] as $val=>$label)
+                            @foreach(['pending'=>'Pending','processing'=>'Diproses','shipped'=>'Dikirim','delivered'=>'Terkirim','cancelled'=>'Dibatalkan'] as $val=>$label)
                                 <option value="{{ $val }}" {{ $order->status === $val ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
@@ -170,12 +170,12 @@ $flowerImgMap = [
                     <div class="form-group">
                         <label>Status Pembayaran</label>
                         <select name="payment_status">
-                            <option value="unpaid"   {{ $order->payment_status === 'unpaid'   ? 'selected' : '' }}>💳 Belum Bayar</option>
-                            <option value="paid"     {{ $order->payment_status === 'paid'     ? 'selected' : '' }}>✅ Lunas</option>
-                            <option value="refunded" {{ $order->payment_status === 'refunded' ? 'selected' : '' }}>↩️ Refund</option>
+                            <option value="unpaid"   {{ $order->payment_status === 'unpaid'   ? 'selected' : '' }}>Belum Bayar</option>
+                            <option value="paid"     {{ $order->payment_status === 'paid'     ? 'selected' : '' }}>Lunas</option>
+                            <option value="refunded" {{ $order->payment_status === 'refunded' ? 'selected' : '' }}>Refund</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-pink" style="width:100%;justify-content:center">💾 Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-pink" style="width:100%;justify-content:center">Simpan Perubahan</button>
                 </form>
             </div>
         </div>

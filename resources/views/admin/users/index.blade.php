@@ -5,7 +5,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3>👥 Daftar Pengguna</h3>
+        <h3> Daftar Pengguna</h3>
         <a href="{{ route('admin.users.create') }}" class="btn btn-pink">+ Tambah Pengguna</a>
     </div>
     <div class="card-body" style="padding-bottom:.5rem">
@@ -14,10 +14,10 @@
                    placeholder="Cari nama atau email…" style="max-width:300px">
             <select name="role">
                 <option value="">Semua Role</option>
-                <option value="admin"    {{ request('role')==='admin'    ? 'selected' : '' }}>👑 Admin</option>
-                <option value="customer" {{ request('role')==='customer' ? 'selected' : '' }}>👤 Customer</option>
+                <option value="admin"    {{ request('role')==='admin'    ? 'selected' : '' }}> Admin</option>
+                <option value="customer" {{ request('role')==='customer' ? 'selected' : '' }}> Customer</option>
             </select>
-            <button type="submit" class="btn btn-pink">🔍 Filter</button>
+            <button type="submit" class="btn btn-pink"> Filter</button>
             @if(request()->hasAny(['search','role']))
                 <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">✕ Reset</a>
             @endif
@@ -52,30 +52,30 @@
                     <td style="color:#555">{{ $user->phone ?: '-' }}</td>
                     <td>
                         @if($user->role === 'admin')
-                            <span class="badge badge-purple">👑 Admin</span>
+                            <span class="badge badge-purple"> Admin</span>
                         @else
-                            <span class="badge badge-secondary">👤 Customer</span>
+                            <span class="badge badge-secondary"> Customer</span>
                         @endif
                     </td>
                     <td>
                         @if($user->is_active)
-                            <span class="badge badge-success">✅ Aktif</span>
+                            <span class="badge badge-success"> Aktif</span>
                         @else
-                            <span class="badge badge-danger">🚫 Nonaktif</span>
+                            <span class="badge badge-danger"> Nonaktif</span>
                         @endif
                     </td>
                     <td style="font-size:.8rem;color:#888">{{ $user->created_at->format('d M Y') }}</td>
                     <td>
                         <div style="display:flex;gap:.4rem">
-                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">✏️ Edit</a>
+                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning"> Edit</a>
                             @if($user->id !== auth()->id())
                             <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                   onsubmit="return confirm('Hapus pengguna {{ $user->name }}?')">
                                 @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-danger">🗑️</button>
+                                <button class="btn btn-sm btn-danger"><img src="{{ asset('images/icons/icons8-trash-100.png') }}" style="width:14px;height:14px;"></button>
                             </form>
                             @else
-                            <span class="btn btn-sm btn-secondary" style="opacity:.5;cursor:default">🗑️</span>
+                            <span class="btn btn-sm btn-secondary" style="opacity:.5;cursor:default"><img src="{{ asset('images/icons/icons8-trash-100.png') }}" style="width:14px;height:14px;"></span>
                             @endif
                         </div>
                     </td>

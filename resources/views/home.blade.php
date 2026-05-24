@@ -120,7 +120,7 @@
     </div>
     <div class="hero-visual">
         <div class="hero-bouquet">
-            <img src="{{ asset('images/icons/icons8-flowers-100.png') }}" style="width:200px;height:200px;object-fit:contain;">
+            <img src="{{ asset('images/logo.svg') }}" style="width:220px;height:220px;object-fit:contain;">
         </div>
     </div>
 </section>
@@ -142,25 +142,25 @@
     <div class="products-grid">
         @php
         $bestSellers = [
-            ['name'=>'The Romance Set','flowers'=>['🌹','🌸'],'price'=>195000,'tag'=>'Best Seller','bg'=>'linear-gradient(135deg,#FCE4EC,#F5EDDF)','meaning'=>'Cinta & Kemakmuran'],
-            ['name'=>'Morning Bliss','flowers'=>['🌼','🌻','🌾'],'price'=>145000,'tag'=>'New Arrival','bg'=>'linear-gradient(135deg,#FFF9C4,#E8F5E9)','meaning'=>'Sukacita & Awal Baru'],
-            ['name'=>'Violet Dreams','flowers'=>['💜','🌺','🗡️'],'price'=>165000,'tag'=>null,'bg'=>'linear-gradient(135deg,#EDE7F6,#F5EDDF)','meaning'=>'Kesetiaan & Kekuatan'],
-            ['name'=>'Sakura Garden','flowers'=>['🌸','🌹','💐'],'price'=>225000,'tag'=>'Limited','bg'=>'linear-gradient(135deg,#FCE4EC,#FAD5DC)','meaning'=>'Cinta Sejati'],
-            ['name'=>'Warm Embrace','flowers'=>['🌻','🌸','🌼'],'price'=>125000,'tag'=>null,'bg'=>'linear-gradient(135deg,#FFF3E0,#FFF9C4)','meaning'=>'Kehangatan & Kemurnian'],
-            ['name'=>'Water Garden','flowers'=>['🌊','💐','💜'],'price'=>175000,'tag'=>'Trending','bg'=>'linear-gradient(135deg,#E1F5FE,#EDE7F6)','meaning'=>'Kemurnian & Kelahiran'],
+            ['name'=>'The Romance Set','image'=>'theromance.jpg','price'=>195000,'tag'=>'Best Seller','bg'=>'linear-gradient(135deg,#FCE4EC,#F5EDDF)','meaning'=>'Cinta & Kemakmuran'],
+            ['name'=>'Morning Bliss','image'=>'morningbliss.jpg','price'=>145000,'tag'=>'New Arrival','bg'=>'linear-gradient(135deg,#FFF9C4,#E8F5E9)','meaning'=>'Sukacita & Awal Baru'],
+            ['name'=>'Violet Dreams','image'=>'violetdreams.jpg','price'=>165000,'tag'=>null,'bg'=>'linear-gradient(135deg,#EDE7F6,#F5EDDF)','meaning'=>'Kesetiaan & Kekuatan'],
+            ['name'=>'Sakura Garden','image'=>'sakuragarden.jpg','price'=>225000,'tag'=>'Limited','bg'=>'linear-gradient(135deg,#FCE4EC,#FAD5DC)','meaning'=>'Cinta Sejati'],
+            ['name'=>'Warm Embrace','image'=>'warmembrace.jpg','price'=>125000,'tag'=>null,'bg'=>'linear-gradient(135deg,#FFF3E0,#FFF9C4)','meaning'=>'Kehangatan & Kemurnian'],
+            ['name'=>'Water Garden','image'=>'watergarden.jpg','price'=>175000,'tag'=>'Trending','bg'=>'linear-gradient(135deg,#E1F5FE,#EDE7F6)','meaning'=>'Kemurnian & Kelahiran'],
         ];
         @endphp
         @foreach($bestSellers as $product)
         <div class="product-card">
-            <div class="product-visual" style="background: {{ $product['bg'] }}">
-                <div style="font-size:4rem">{{ implode('', $product['flowers']) }}</div>
+            <div class="product-visual" style="background: {{ $product['bg'] }}; padding: 0; overflow: hidden;">
+                <img src="{{ asset('images/bouquets/' . $product['image']) }}" alt="{{ $product['name'] }}" style="width:100%;height:100%;object-fit:cover;">
                 @if($product['tag'])
                     <div class="product-tag">{{ $product['tag'] }}</div>
                 @endif
             </div>
             <div class="product-info">
                 <h3>{{ $product['name'] }}</h3>
-                <p class="meaning">✨ {{ $product['meaning'] }}</p>
+                <p class="meaning">{{ $product['meaning'] }}</p>
                 <div style="display:flex;align-items:center;justify-content:space-between">
                     <span class="product-price">Rp {{ number_format($product['price'],0,',','.') }}</span>
                 </div>
@@ -370,7 +370,7 @@ async function addPresetToCart(productName, price) {
 async function postToCart(name, flowerIds, message, price) {
     const btn = document.getElementById('btnAddCart');
     const origText = btn ? btn.innerHTML : '';
-    if (btn) { btn.disabled = true; btn.innerHTML = ' Menambahkan...'; }
+    if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Menambahkan...'; }
 
     try {
         const resp = await fetch('/cart/add', {

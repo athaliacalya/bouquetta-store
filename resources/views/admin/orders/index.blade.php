@@ -5,7 +5,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3>📦 Daftar Pesanan</h3>
+        <h3>Daftar Pesanan</h3>
         <span style="font-size:.85rem;color:#888">Total: {{ $orders->total() }} pesanan</span>
     </div>
     <div class="card-body" style="padding-bottom:.5rem">
@@ -18,7 +18,7 @@
                     <option value="{{ $val }}" {{ request('status') === $val ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
-            <button type="submit" class="btn btn-pink">🔍 Filter</button>
+            <button type="submit" class="btn btn-pink">Filter</button>
             @if(request()->hasAny(['search','status']))
                 <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">✕ Reset</a>
             @endif

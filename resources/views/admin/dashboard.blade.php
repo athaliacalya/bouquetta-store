@@ -54,7 +54,7 @@
     {{-- RECENT ORDERS --}}
     <div class="card">
         <div class="card-header">
-            <h3>📋 Pesanan Terbaru</h3>
+            <h3>Pesanan Terbaru</h3>
             <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-pink">Lihat Semua</a>
         </div>
         <div class="table-wrap">
