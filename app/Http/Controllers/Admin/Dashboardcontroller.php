@@ -21,21 +21,16 @@ class DashboardController extends Controller
             'total_subscribers' => Subscriber::where('is_active', true)->count(),
         ];
 
-        $recentOrders = Order::with('bouquet')
-            ->latest()
-            ->limit(8)
-            ->get();
+        $recentOrders = Order::latest()->limit(8)->get();
 
+        // MySQL-compatible monthly revenue (current year)
         $monthlyRevenue = Order::where('payment_status', 'paid')
-            ->selectRaw("MONTH(created_at) as month, SUM(total) as total")
-            ->groupByRaw("MONTH(created_at)")
-            ->orderByRaw("MONTH(created_at)")
+            ->whereYear('created_at', now()->year)
+            ->selectRaw('MONTH(created_at) as month, SUM(total) as total')
+            ->groupBy('month')
+            ->orderBy('month')
             ->pluck('total', 'month');
 
-        return view('admin.dashboard', compact(
-            'stats',
-            'recentOrders',
-            'monthlyRevenue'
-        ));    
+        return view('admin.dashboard', compact('stats', 'recentOrders', 'monthlyRevenue'));
     }
 }

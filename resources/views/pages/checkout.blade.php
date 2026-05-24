@@ -48,7 +48,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
             <div>
                 <!-- Data Penerima -->
                 <div class="checkout-form-card">
-                    <h3>📦 Data Pengiriman</h3>
+                    <h3><img src="{{ asset('images/icons/icons8-package-64.png') }}" style="width:18px;height:18px;vertical-align:middle;margin-right:5px;"> Data Pengiriman</h3>
                     <div class="form-row-2">
                         <div class="form-group">
                             <label>Nama Lengkap *</label>
@@ -86,7 +86,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 
                 <!-- Surat Personal -->
                 <div class="checkout-form-card">
-                    <h3>💌 Surat Personal (opsional)</h3>
+                    <h3><img src="{{ asset('images/icons/icons8-subscribe-to-channel-100.png') }}" style="width:18px;height:18px;vertical-align:middle;margin-right:5px;"> Surat Personal (opsional)</h3>
                     <p style="font-size:.88rem;color:#888;margin-bottom:1rem">Tulis surat yang akan kami cetak dengan indah dan sertakan bersama bouquet.</p>
                     <textarea name="personal_letter" class="letter-textarea" placeholder="Dear kamu yang aku sayangi...&#10;&#10;Bouquet ini aku kirimkan sebagai tanda kasih dan cintaku yang tiada habisnya..." maxlength="2000">{{ old('personal_letter') }}</textarea>
                     @error('personal_letter')<p class="error-msg">{{ $message }}</p>@enderror
@@ -119,7 +119,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
                     <h3>📋 Ringkasan Pesanan</h3>
                     @foreach($cartItems as $item)
                     <div class="order-item">
-                        <div class="order-item-icon">🌸</div>
+                        <div class="order-item-icon"><img src="{{ asset('images/icons/icons8-flower-100.png') }}" style="width:28px;height:28px;object-fit:contain;"></div>
                         <span class="order-item-name">{{ Str::limit($item->product_name, 30) }}</span>
                         <span class="order-item-price">Rp {{ number_format($item->price, 0, ',', '.') }}</span>
                     </div>
@@ -128,7 +128,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
                     <div class="sum-row"><span>Subtotal</span><span>Rp {{ number_format($subtotal, 0, ',', '.') }}</span></div>
                     <div class="sum-row"><span>Ongkos Kirim</span><span>Rp {{ number_format($deliveryFee, 0, ',', '.') }}</span></div>
                     <div class="sum-row total"><span>Total Bayar</span><span>Rp {{ number_format($total, 0, ',', '.') }}</span></div>
-                    <button type="submit" class="btn-place-order">🌸 Buat Pesanan →</button>
+                    <button type="submit" class="btn-place-order"><img src="{{ asset('images/icons/icons8-checkout-100.png') }}" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;"> Buat Pesanan →</button>
                     <a href="{{ route('cart.index') }}" style="display:block;text-align:center;margin-top:.75rem;font-size:.85rem;color:#888">← Kembali ke keranjang</a>
                 </div>
             </div>

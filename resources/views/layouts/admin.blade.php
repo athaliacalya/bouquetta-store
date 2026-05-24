@@ -29,7 +29,9 @@
         .sidebar-link { display: flex; align-items: center; gap: .75rem; padding: .75rem 1.5rem; color: #aaa; font-size: .9rem; font-weight: 500; transition: all .2s; position: relative; }
         .sidebar-link:hover, .sidebar-link.active { background: var(--sidebar-hover); color: #F48FB1; }
         .sidebar-link.active::left { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--pink); }
-        .sidebar-link .icon { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+        .sidebar-link .icon { width: 1.5rem; height: 1.5rem; text-align: center; display:flex; align-items:center; justify-content:center; }
+        .sidebar-link .icon img { width: 20px; height: 20px; object-fit: contain; filter: brightness(0.7) sepia(1) hue-rotate(300deg) saturate(2); }
+        .sidebar-link:hover .icon img, .sidebar-link.active .icon img { filter: brightness(0.8) sepia(1) hue-rotate(280deg) saturate(3); }
         .sidebar-footer { padding: 1.5rem; border-top: 1px solid #2a2a4a; }
         .sidebar-user { display: flex; align-items: center; gap: .75rem; }
         .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--pink); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: .85rem; }
@@ -52,7 +54,8 @@
         .card-body { padding: 1.5rem; }
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         .stat-card { background: var(--white); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); display: flex; align-items: center; gap: 1rem; }
-        .stat-icon { width: 54px; height: 54px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .stat-icon { width: 54px; height: 54px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stat-icon img { width: 32px; height: 32px; object-fit: contain; }
         .stat-info p { font-size: .8rem; color: var(--muted); margin-bottom: .25rem; }
         .stat-info h3 { font-size: 1.6rem; font-weight: 700; }
 
@@ -134,27 +137,22 @@
 <body>
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-        <h2>🌸 Bouquetta</h2>
+        <h2><img src="{{ asset('images/icons/icons8-flower-100.png') }}" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Bouquetta</h2>
         <p>Panel Admin</p>
     </div>
     <nav class="sidebar-nav">
         <div class="nav-section">Utama</div>
-        <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-            <span class="icon">📊</span> Dashboard
+        <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"> Dashboard
         </a>
         <div class="nav-section">Manajemen</div>
-        <a href="{{ route('admin.flowers.index') }}" class="sidebar-link {{ request()->routeIs('admin.flowers*') ? 'active' : '' }}">
-            <span class="icon">🌸</span> Manajemen Bunga
+        <a href="{{ route('admin.flowers.index') }}" class="sidebar-link {{ request()->routeIs('admin.flowers*') ? 'active' : '' }}"> Manajemen Bunga
         </a>
-        <a href="{{ route('admin.orders.index') }}" class="sidebar-link {{ request()->routeIs('admin.orders*') ? 'active' : '' }}">
-            <span class="icon">📦</span> Manajemen Pesanan
+        <a href="{{ route('admin.orders.index') }}" class="sidebar-link {{ request()->routeIs('admin.orders*') ? 'active' : '' }}"> Manajemen Pesanan
         </a>
-        <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
-            <span class="icon">👥</span> Manajemen Pengguna
+        <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}"> Manajemen Pengguna
         </a>
         <div class="nav-section">Toko</div>
-        <a href="{{ route('home') }}" class="sidebar-link" target="_blank">
-            <span class="icon">🏪</span> Lihat Toko
+        <a href="{{ route('home') }}" class="sidebar-link" target="_blank"> Lihat Toko
         </a>
     </nav>
     <div class="sidebar-footer">
@@ -167,7 +165,7 @@
         </div>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="logout-btn">🚪 Logout</button>
+            <button type="submit" class="logout-btn"><img src="{{ asset('images/icons/icons8-logout-100.png') }}" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"> Logout</button>
         </form>
     </div>
 </aside>
@@ -179,16 +177,16 @@
             <h1>@yield('page-title', 'Dashboard')</h1>
         </div>
         <div class="topbar-actions">
-            <a href="{{ route('home') }}" class="btn btn-sm btn-secondary" target="_blank">🏪 Toko</a>
+            <a href="{{ route('home') }}" class="btn btn-sm btn-secondary" target="_blank"><img src="{{ asset('images/icons/icons8-store-64.png') }}" style="width:14px;height:14px;"> Toko</a>
         </div>
     </div>
 
     <div class="page-content">
         @if(session('success'))
-            <div class="alert alert-success">✅ {{ session('success') }}</div>
+            <div class="alert alert-success"><img src="{{ asset('images/icons/icons8-check-64.png') }}" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> {{ session('success') }}</div>
         @endif
         @if(session('error'))
-            <div class="alert alert-danger">❌ {{ session('error') }}</div>
+            <div class="alert alert-danger"><img src="{{ asset('images/icons/icons8-cancel-64.png') }}" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> {{ session('error') }}</div>
         @endif
         @yield('content')
     </div>

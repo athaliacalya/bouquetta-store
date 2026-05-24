@@ -114,12 +114,14 @@
         <h1>Rangkaian Bunga<br><span>Artisan</span> untuk<br>Momen Spesialmu</h1>
         <p>Buat bouquet unik dengan sentuhan personal — pilih bunga favoritmu, tambahkan surat cinta, dan kirimkan kebahagiaan ke orang tersayang.</p>
         <div class="hero-actions">
-            <a href="#builder" class="btn btn-pink">🌸 Buat Bouquet Sendiri</a>
+            <a href="#builder" class="btn btn-pink"> Buat Bouquet Sendiri</a>
             <a href="#bestsellers" class="btn btn-outline-pink">Lihat Koleksi</a>
         </div>
     </div>
     <div class="hero-visual">
-        <div class="hero-bouquet">🌸</div>
+        <div class="hero-bouquet">
+            <img src="{{ asset('images/icons/icons8-flowers-100.png') }}" style="width:200px;height:200px;object-fit:contain;">
+        </div>
     </div>
 </section>
 
@@ -134,7 +136,7 @@
 <!-- BEST SELLERS -->
 <section class="section" id="bestsellers">
     <div class="section-header">
-        <h2>🌺 Koleksi Terlaris</h2>
+        <h2> Koleksi Terlaris</h2>
         <p>Bouquet pilihan yang paling dicintai pelanggan kami</p>
     </div>
     <div class="products-grid">
@@ -177,7 +179,7 @@
 <section id="builder">
     <div class="builder-container">
         <div class="section-header">
-            <h2>🎨 Buat Bouquetmu Sendiri</h2>
+            <h2> Buat Bouquetmu Sendiri</h2>
             <p>Pilih bunga favoritmu (max 8), tambahkan surat personal, dan masukkan ke keranjang</p>
         </div>
 
@@ -198,13 +200,17 @@
 
         <div class="builder-preview">
             <div id="preview-empty" style="color:#aaa;padding:2rem">
-                <p style="font-size:3rem">💐</p>
+                <p style="font-size:3rem"></p>
                 <p style="margin-top:.75rem">Pilih bunga untuk melihat preview bouquetmu</p>
             </div>
             <div id="preview-bouquet" style="display:none">
                 <div class="preview-flowers" id="previewFlowers"></div>
                 <p style="margin-top:1rem;color:#555;font-weight:600" id="previewSummary"></p>
-                <p style="color:var(--pink);font-weight:700;font-size:1.1rem;margin-top:.5rem" id="previewPrice"></p>
+                <div style="margin-top:.75rem;background:#fff8f9;border:1px solid #fce4ec;border-radius:10px;padding:.75rem 1rem;display:inline-block;text-align:left;min-width:200px">
+                    <div style="font-size:.8rem;color:#888;display:flex;justify-content:space-between;gap:2rem;margin-top:.25rem" id="previewFlowerCost"><span>Bunga</span><span>Rp 0</span></div>
+                    <div style="border-top:1px dashed #f48fb1;margin:.5rem 0"></div>
+                    <div style="font-size:1rem;font-weight:700;color:var(--pink);display:flex;justify-content:space-between;gap:2rem" id="previewPrice"><span>Total</span><span>Rp 0</span></div>
+                </div>
             </div>
         </div>
 
@@ -216,7 +222,7 @@
 
         <div class="builder-actions">
             <button class="btn btn-pink" onclick="addCustomToCart()" id="btnAddCart">
-                🛒 Tambah ke Keranjang
+                 Tambah ke Keranjang
             </button>
             <a href="{{ route('cart.index') }}" class="btn btn-outline-pink">Lihat Keranjang</a>
         </div>
@@ -226,7 +232,7 @@
 <!-- TESTIMONIALS -->
 <section class="section" style="background:#fafafa">
     <div class="section-header">
-        <h2>💬 Apa Kata Mereka</h2>
+        <h2> Apa Kata Mereka</h2>
         <p>Ribuan pelanggan yang telah merasakan keajaiban Bouquetta</p>
     </div>
     <div class="testimonials-grid">
@@ -253,25 +259,25 @@
             <h2>Mengapa Memilih Bouquetta?</h2>
             <p>Kami percaya bahwa setiap bunga memiliki cerita, dan setiap momen berhak mendapatkan yang terbaik.</p>
             <ul class="feature-list">
-                <li><div class="feature-icon">🎨</div> <span>Desain bouquet unik dengan ilustrasi artisan berkualitas tinggi</span></li>
-                <li><div class="feature-icon">💌</div> <span>Surat personal dicetak pada kertas premium bergaya kaligrafi</span></li>
-                <li><div class="feature-icon">🚀</div> <span>Pengiriman cepat ke seluruh Indonesia dengan packaging cantik</span></li>
-                <li><div class="feature-icon">♻️</div> <span>Menggunakan bahan ramah lingkungan dan sustainable</span></li>
-                <li><div class="feature-icon">💯</div> <span>Garansi kepuasan 100% atau uang kembali</span></li>
+                <li><div class="feature-icon"><img src="{{ asset('images/icons/icons8-flower-100.png') }}" style="width:20px;height:20px;object-fit:contain;"></div> <span>Desain bouquet unik dengan ilustrasi artisan berkualitas tinggi</span></li>
+                <li><div class="feature-icon"><img src="{{ asset('images/icons/icons8-subscribe-to-channel-100.png') }}" style="width:20px;height:20px;object-fit:contain;"></div> <span>Surat personal dicetak pada kertas premium bergaya kaligrafi</span></li>
+                <li><div class="feature-icon"><img src="{{ asset('images/icons/icons8-shipped-64.png') }}" style="width:20px;height:20px;object-fit:contain;"></div> <span>Pengiriman cepat ke seluruh Indonesia dengan packaging cantik</span></li>
+                <li><div class="feature-icon"><img src="{{ asset('images/icons/icons8-check-64.png') }}" style="width:20px;height:20px;object-fit:contain;"></div> <span>Menggunakan bahan ramah lingkungan dan sustainable</span></li>
+                <li><div class="feature-icon"><img src="{{ asset('images/icons/icons8-check-64.png') }}" style="width:20px;height:20px;object-fit:contain;"></div> <span>Garansi kepuasan 100% atau uang kembali</span></li>
             </ul>
         </div>
         <div class="about-visual">
             <div class="about-card" style="background:linear-gradient(135deg,#FCE4EC,#FFF8F0)">
-                <div class="icon">🌸</div><h4>11+ Bunga</h4><p>Berbagai pilihan bunga dengan makna unik</p>
+                <div class="icon"><img src="{{ asset('images/icons/icons8-flower-100.png') }}" style="width:40px;height:40px;object-fit:contain;"></div><h4>11+ Bunga</h4><p>Berbagai pilihan bunga dengan makna unik</p>
             </div>
             <div class="about-card" style="background:linear-gradient(135deg,#EDE7F6,#E8F5E9)">
-                <div class="icon">💌</div><h4>Surat Custom</h4><p>Tulis pesan dari hati untuk orang tersayang</p>
+                <div class="icon"><img src="{{ asset('images/icons/icons8-subscribe-to-channel-100.png') }}" style="width:40px;height:40px;object-fit:contain;"></div><h4>Surat Custom</h4><p>Tulis pesan dari hati untuk orang tersayang</p>
             </div>
             <div class="about-card" style="background:linear-gradient(135deg,#E1F5FE,#F3E5F5)">
-                <div class="icon">📦</div><h4>Pengiriman</h4><p>Pengemasan premium, aman sampai tujuan</p>
+                <div class="icon"><img src="{{ asset('images/icons/icons8-package-64.png') }}" style="width:40px;height:40px;object-fit:contain;"></div><h4>Pengiriman</h4><p>Pengemasan premium, aman sampai tujuan</p>
             </div>
             <div class="about-card" style="background:linear-gradient(135deg,#FFF3E0,#FCE4EC)">
-                <div class="icon">⭐</div><h4>4.9 Rating</h4><p>Kepercayaan ribuan pelanggan setia</p>
+                <div class="icon"><img src="{{ asset('images/icons/icons8-check-64.png') }}" style="width:40px;height:40px;object-fit:contain;"></div><h4>4.9 Rating</h4><p>Kepercayaan ribuan pelanggan setia</p>
             </div>
         </div>
     </div>
@@ -279,7 +285,7 @@
 
 <!-- NEWSLETTER -->
 <section class="newsletter">
-    <h2>🌺 Dapatkan Penawaran Spesial</h2>
+    <h2> Dapatkan Penawaran Spesial</h2>
     <p>Daftar newsletter dan dapatkan diskon 15% untuk pembelian pertamamu!</p>
     <form class="newsletter-form" onsubmit="subscribe(event)">
         <input type="email" id="subEmail" placeholder="Email kamu..." required>
@@ -293,7 +299,6 @@
 <script>
 // Flower builder state
 let selectedFlowers = [];
-const BASE_PRICE = 80000;
 const flowerData = {};
 
 document.querySelectorAll('.flower-card').forEach(el => {
@@ -337,8 +342,10 @@ function updatePreview() {
         `<img src="${f.image}" alt="${f.name}" title="${f.name}" style="width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));">`
     ).join('');
     document.getElementById('previewSummary').textContent = selectedFlowers.map(f => f.name).join(', ');
-    const total = BASE_PRICE + selectedFlowers.reduce((s, f) => s + f.price, 0);
-    document.getElementById('previewPrice').textContent = 'Total: Rp ' + total.toLocaleString('id-ID');
+    const flowerTotal = selectedFlowers.reduce((s, f) => s + f.price, 0);
+    const total = flowerTotal;
+    document.getElementById('previewFlowerCost').innerHTML = `<span>Bunga (${selectedFlowers.length} jenis)</span><span>Rp ${flowerTotal.toLocaleString('id-ID')}</span>`;
+    document.getElementById('previewPrice').innerHTML = `<span>Total</span><span>Rp ${total.toLocaleString('id-ID')}</span>`;
 }
 
 document.getElementById('personalLetter').addEventListener('input', function() {
@@ -350,7 +357,7 @@ async function addCustomToCart() {
         alert('Pilih minimal 1 bunga terlebih dahulu!');
         return;
     }
-    const price = BASE_PRICE + selectedFlowers.reduce((s, f) => s + f.price, 0);
+    const price = selectedFlowers.reduce((s, f) => s + f.price, 0);
     const name  = 'Custom: ' + selectedFlowers.map(f => f.name).join(', ');
     const letter = document.getElementById('personalLetter').value;
     await postToCart(name, selectedFlowers.map(f => f.slug), letter, price);
@@ -363,7 +370,7 @@ async function addPresetToCart(productName, price) {
 async function postToCart(name, flowerIds, message, price) {
     const btn = document.getElementById('btnAddCart');
     const origText = btn ? btn.innerHTML : '';
-    if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Menambahkan...'; }
+    if (btn) { btn.disabled = true; btn.innerHTML = ' Menambahkan...'; }
 
     try {
         const resp = await fetch('/cart/add', {

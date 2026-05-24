@@ -41,9 +41,8 @@ class Bouquet extends Model
     public function calculatePrice(): int
     {
         $flowers = Flower::whereIn('slug', $this->flower_ids ?? [])->get();
-        $base    = 80000;
         $perFlower = $flowers->sum('price');
-        return $base + $perFlower;
+        return $perFlower;
     }
 
     public function getTotalFormattedAttribute(): string
