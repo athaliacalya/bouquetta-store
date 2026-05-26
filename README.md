@@ -39,6 +39,9 @@ Project ini dibuat menggunakan Laravel sebagai backend framework.
 ### Dashboard
 ![Dashboard](assets/images/dashboard.png)
 
+### Database Table
+![Database Table](assets/images/tabledatabase.png)
+
 ---
 
 ## ✨ Fitur
