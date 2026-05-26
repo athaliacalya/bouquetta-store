@@ -42,8 +42,8 @@ Project ini dibuat menggunakan Laravel sebagai backend framework.
 ## 🚀 Cara Instalasi
 
 ```bash
-git clone https://github.com/username/bouquettaku.git
-cd bouquettaku
+git clone https://github.com/athaliacalya/bouquetta.git
+cd bouquetta
 composer install
 cp .env.example .env
 php artisan key:generate
