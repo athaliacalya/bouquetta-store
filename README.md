@@ -25,7 +25,7 @@ Project ini dibuat menggunakan Laravel sebagai backend framework.
 ## 📸 Tampilan Website
 
 ### Beranda
-![Beranda](assets/images/beranda.png)
+![Beranda](assets/images/beranda-new.png)
 
 ### Login
 ![Login](assets/images/login.png)
