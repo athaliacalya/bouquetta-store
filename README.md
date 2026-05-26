@@ -61,30 +61,26 @@ Project ini dibuat untuk pembelajaran dan pengembangan website berbasis Laravel.
 
 ---
 
-# Table Database
+# Struktur Database
 
-Berikut adalah struktur tabel database pada project **Bouquetta**:
+Database pada project **Bouquetta** terdiri dari beberapa tabel berikut:
 
-<p align="center">
-  <img src="assets/images/tabledatabase.png" width="100%" alt="Table Database">
-</p>
-
-| No | Nama Tabel | Deskripsi |
-|----|-------------|------------|
-| 1 | bouquets | Menyimpan data produk buket bunga |
+| No | Nama Tabel | Fungsi |
+|----|-------------|---------|
+| 1 | bouquets | Menyimpan data produk buket |
 | 2 | bouquet_flowers | Relasi antara buket dan bunga |
 | 3 | flowers | Menyimpan data bunga |
-| 4 | cart_items | Menyimpan data keranjang belanja |
+| 4 | cart_items | Menyimpan data keranjang belanja user |
 | 5 | orders | Menyimpan data pesanan customer |
 | 6 | users | Menyimpan data akun pengguna |
-| 7 | subscribers | Menyimpan data subscriber email |
-| 8 | sessions | Menyimpan session login user |
+| 7 | subscribers | Menyimpan data subscriber |
+| 8 | sessions | Menyimpan session login |
 | 9 | migrations | Riwayat migrasi database |
 | 10 | cache | Penyimpanan cache aplikasi |
 | 11 | cache_locks | Data lock cache |
 | 12 | jobs | Queue jobs Laravel |
 | 13 | job_batches | Batch queue jobs |
-| 14 | failed_jobs | Penyimpanan queue yang gagal |
+| 14 | failed_jobs | Penyimpanan job gagal |
 
 ---
 
