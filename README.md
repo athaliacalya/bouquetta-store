@@ -17,7 +17,7 @@ Website penjualan buket bunga berbasis Laravel
 ---
 
 ## 🌷 Tentang Project
-**Bouquettaku** adalah website e-commerce sederhana untuk menjual berbagai jenis buket bunga.  
+**Bouquetta** adalah website e-commerce sederhana untuk menjual berbagai jenis buket bunga.  
 Project ini dibuat menggunakan Laravel sebagai backend framework.
 
 ---
