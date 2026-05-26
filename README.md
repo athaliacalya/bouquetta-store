@@ -22,6 +22,25 @@ Project ini dibuat menggunakan Laravel sebagai backend framework.
 
 ---
 
+## 📸 Tampilan Website
+
+### Beranda
+![Beranda](assets/images/beranda.png)
+
+### Login
+![Login](assets/images/login.png)
+
+### Keranjang
+![Keranjang](assets/images/keranjangbelanja.png)
+
+### Checkout
+![Checkout](assets/images/checkout.png)
+
+### Dashboard
+![Dashboard](assets/images/dashboard.png)
+
+---
+
 ## ✨ Fitur
 - 🔐 Login & Register user
 - 🛍️ Manajemen produk buket
