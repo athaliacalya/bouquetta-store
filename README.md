@@ -95,16 +95,6 @@ Database pada project **Bouquetta** terdiri dari beberapa tabel berikut:
 
 ---
 
-# Teknologi yang Digunakan
-
-- Laravel 10
-- PHP 8+
-- MySQL
-- Bootstrap / Tailwind CSS
-- Blade Template Engine
-
----
-
 # Cara Instalasi
 
 ```bash
