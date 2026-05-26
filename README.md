@@ -1,73 +1,126 @@
 <p align="center">
-  <img src="https://laravel.com/img/logomark.min.svg" width="120" alt="Bouquettaku Logo">
+  <img src="https://laravel.com/img/logomark.min.svg" width="120" alt="Bouquetta Logo">
 </p>
 
-<h1 align="center">Bouquetta 🌸</h1>
+<h1 align="center">Bouquetta</h1>
 
 <p align="center">
-Website penjualan buket bunga berbasis Laravel
+Website Penjualan Buket Bunga Berbasis Laravel
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-10-red?style=flat-square">
   <img src="https://img.shields.io/badge/PHP-8+-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/MySQL-Database-orange?style=flat-square">
   <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square">
 </p>
 
 ---
 
-## 🌷 Tentang Project
-**Bouquetta** adalah website e-commerce sederhana untuk menjual berbagai jenis buket bunga.  
-Project ini dibuat menggunakan Laravel sebagai backend framework.
+# Tentang Project
+
+**Bouquetta** adalah website e-commerce sederhana untuk penjualan buket bunga secara online.  
+Project ini dibuat menggunakan framework **Laravel** dengan database **MySQL**.
+
+Website ini memiliki fitur:
+- Manajemen produk buket bunga
+- Sistem login & register user
+- Keranjang belanja
+- Checkout pemesanan
+- Dashboard admin
+- CRUD data produk
+
+Project ini dibuat untuk pembelajaran dan pengembangan website berbasis Laravel.
 
 ---
 
-## 📸 Tampilan Website
+# Screenshoot Halaman
 
-### Beranda
+## Halaman Beranda
 ![Beranda](assets/images/beranda-new.png)
 
-### Login
+---
+
+## Halaman Login
 ![Login](assets/images/login.png)
 
-### Keranjang
+---
+
+## Halaman Keranjang
 ![Keranjang](assets/images/keranjangbelanja.png)
 
-### Checkout
+---
+
+## Halaman Checkout
 ![Checkout](assets/images/checkout.png)
 
-### Dashboard
+---
+
+## Dashboard Admin
 ![Dashboard](assets/images/dashboard.png)
 
-### Database Table
-![Database Table](assets/images/tabledatabase.png)
+---
+
+# Table Database
+
+Berikut adalah struktur tabel database pada project **Bouquetta**:
+
+<p align="center">
+  <img src="assets/images/tabledatabase.png" width="100%" alt="Table Database">
+</p>
+
+| No | Nama Tabel | Deskripsi |
+|----|-------------|------------|
+| 1 | bouquets | Menyimpan data produk buket bunga |
+| 2 | bouquet_flowers | Relasi antara buket dan bunga |
+| 3 | flowers | Menyimpan data bunga |
+| 4 | cart_items | Menyimpan data keranjang belanja |
+| 5 | orders | Menyimpan data pesanan customer |
+| 6 | users | Menyimpan data akun pengguna |
+| 7 | subscribers | Menyimpan data subscriber email |
+| 8 | sessions | Menyimpan session login user |
+| 9 | migrations | Riwayat migrasi database |
+| 10 | cache | Penyimpanan cache aplikasi |
+| 11 | cache_locks | Data lock cache |
+| 12 | jobs | Queue jobs Laravel |
+| 13 | job_batches | Batch queue jobs |
+| 14 | failed_jobs | Penyimpanan queue yang gagal |
 
 ---
 
-## ✨ Fitur
-- 🔐 Login & Register user
-- 🛍️ Manajemen produk buket
-- 🧾 Sistem checkout
-- 📦 Dashboard admin
-- 🗂️ CRUD data produk
+# Fitur Utama
+
+- Login & Register
+- CRUD Produk Buket
+- Sistem Checkout
+- Keranjang Belanja
+- Dashboard Admin
+- Manajemen Database
 
 ---
 
-## 🛠️ Teknologi
-- Laravel
-- PHP
+# Teknologi yang Digunakan
+
+- Laravel 10
+- PHP 8+
 - MySQL
-- Bootstrap / Tailwind
+- Bootstrap / Tailwind CSS
+- Blade Template Engine
 
 ---
 
-## 🚀 Cara Instalasi
+# Cara Instalasi
 
 ```bash
 git clone https://github.com/athaliacalya/bouquetta.git
 cd bouquetta
+
 composer install
+
 cp .env.example .env
+
 php artisan key:generate
+
 php artisan migrate
+
 php artisan serve
